@@ -1,4 +1,0 @@
-INDEX VERSION 1.134+/Users/azer/Desktop/Work/java-sdk/.metadata/.plugins/org.eclipse.jdt.core
-1414766606.index
-1865797976.index
-4291903242.index
