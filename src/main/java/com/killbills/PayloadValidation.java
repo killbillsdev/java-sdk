@@ -51,7 +51,9 @@ public class PayloadValidation {
             validateField(transaction, "currency", String.class, false, errors, "EUR", "USD");
             validateField(transaction, "merchant_name", String.class, false, errors);
         }
-        System.out.println("test" + errors);
+        if (!errors.isEmpty()) {
+            System.out.println("test" + errors);
+        }
         return errors.isEmpty();
     }
 

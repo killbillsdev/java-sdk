@@ -1,5 +1,7 @@
 package com.killbills;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,10 +14,11 @@ import java.util.Map;
  */
 public class App {
     public static void main(String[] args) {
+        Dotenv dotenv = Dotenv.load();
         System.out.println("Hello World!");
         int sum = Sdk.add(8, 2); // Use the add method from the imported package
         System.out.println("Sum: " + sum);
-        List<Map<String, Object>> stores = Sdk.getStores("prod", "e82376a1-2869-461b-9a6b-1f10bc87bedc");
+        List<Map<String, Object>> stores = Sdk.getStores("prod", dotenv.get("API_KEY"));
         System.out.println("Sum: " + stores);
         Map<String, Object> data = new HashMap<>();
         data.put("id", 221188271);
@@ -115,7 +118,7 @@ public class App {
         payments.add(payment);
         data.put("payments", payments);
 
-        // System.out.println("Sum: " + Sdk.sendReceipt("test", data, "3@iPFqe2VX32"));
+        System.out.println("Sum: " + Sdk.sendReceipt("test", data, dotenv.get("HMAC_RECEIPT")));
         Map<String, Object> payload = new HashMap<>();
 
         // Set values for bank_id, transaction, callback_url, partner_name, and
@@ -149,7 +152,7 @@ public class App {
 
         payload.put("transaction", transactiont);
         System.out.println(payload);
-        System.out.println("tr: " + Sdk.sendBankingTransaction("test", payload, "DE$G3@iPFq2"));
+        System.out.println("tr: " + Sdk.sendBankingTransaction("test", payload, dotenv.get("HMAC_TRANSACTION")));
     }
 
     private static Map<String, Object> createTaxMap(int rate, int amount, String description) {
