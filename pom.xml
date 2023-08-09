@@ -3,7 +3,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.killbillsdev</groupId> <!-- Change to your actual groupId -->
-  <artifactId>java-sdk</artifactId> <!-- Change to your actual artifactId -->
+  <artifactId>Killbills-sdk</artifactId> <!-- Change to your actual artifactId -->
   <packaging>jar</packaging>
   <version>0.0.1</version>
   <name>java-sdk</name>
