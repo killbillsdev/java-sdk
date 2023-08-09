@@ -1,0 +1,29 @@
+name: test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+     - name: Checkout
+       uses: actions/checkout@v3
+       with:
+        java-version: '11'
+        distribution: 'temurin'
+
+     - name: Build
+       run: mvn --batch-mode -DskipTests package
+
+     - name: Test
+       run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+    
+     - name: Report
+       uses: dorny/test-reporter@v1
+       if: always()
+       with:
+        name: Maven Tests
+        path: target/surefire-reports/*.xml
+        reporter: java-junit
+        fail-on-error: true
