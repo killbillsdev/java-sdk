@@ -19,15 +19,27 @@ The main purpose of this Software Development Kit (SDK) is to facilitates the in
 
 ## Installation
 
-##### maven package: 
+##### in your pom.xml:
 
-
-
+```xml
+<project>
+    ...
+    <dependencies>
+        ...
+        <dependency>
+            <groupId>io.github.killbillsdev</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+    </dependencies>
+    ...
+</project>
+```
 ## Usage/Examples
  
 #### Method getStores :
 ```java
-
+Sdk.getStores("dev", "your-api-key");
 ```
 ##### Output:
 ```yaml
@@ -55,7 +67,7 @@ The main purpose of this Software Development Kit (SDK) is to facilitates the in
 #### Method sendTransaction :
 ##### note that the transactionData object only contains minimal required values see (insert link to all possibilities)
 ```java
-
+Sdk.sendReceipt("preprod", data, "your-hmac-key")
 ```
 ##### Output: 
 ```yaml
@@ -70,7 +82,7 @@ The main purpose of this Software Development Kit (SDK) is to facilitates the in
 #### Method sendReceipt :
 ##### note that the receiptData object only contains minimal required values see (insert link to all possibilities)
 ```java
-
+Sdk.sendBankingTransaction("preprod", data, "your-hmac-key")
 ```
 ##### Output: 
 ```yaml
@@ -194,23 +206,20 @@ receiptData = {
 Clone the project
 
 ```bash
-  git clone https://github.com/killbillsdev/python-sdk
+  git clone https://github.com/killbillsdev/java-sdk
 ```
 
 Go to the project directory
 
 ```bash
-  cd python-sdk
+  cd java-sdk
 ```
 
 Install dependencies
 ```bash
-mvn clean install
+make
 ```
-Run the project
-```bash
-mvn exec:java
-```
+
 
 
 ## Running Tests
@@ -218,15 +227,13 @@ mvn exec:java
 To run tests, run the following command
 
 ```bash
-mvn test
+make test / mvn run test
 ```
 
 
-## Feedback
+## Feedback / Feature request
 
-If you have any feedback, please reach out to us at :
-
-https://freeonlinesurveys.com/s/8biYAZPa
+If you have any feedback, please reach out to us at contact@killbills.co
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/) [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
