@@ -1,4 +1,4 @@
-package com.example;
+package com.killbills;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -67,12 +67,22 @@ public class Sdk {
         return (List<Map<String, Object>>) responseObject.get("items");
     }
 
-    public static int sendReceipt(int a, int b) {
-        return a - b;
+    public static String sendReceipt(String env, Map<String, Object> receiptData, String hmacKey) {
+        return DataSender.sendDataWithHmac(env, "receipt", receiptData, hmacKey, new ValidatorFunction() {
+            @Override
+            public boolean validate(Map<String, Object> data) {
+                return PayloadValidation.validateReceiptPayload(data);
+            }
+        });
     }
 
-    public static int sendBankingTransaction(int a, int b) {
-        return a - b;
+    public static String sendBankingTransaction(String env, Map<String, Object> receiptData, String hmacKey) {
+        return DataSender.sendDataWithHmac(env, "transaction", receiptData, hmacKey, new ValidatorFunction() {
+            @Override
+            public boolean validate(Map<String, Object> data) {
+                return PayloadValidation.validateTransactionPayload(data);
+            }
+        });
     }
 
     public static int add(int i, int j) {

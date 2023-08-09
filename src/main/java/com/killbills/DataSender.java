@@ -1,14 +1,16 @@
-package com.example;
+package com.killbills;
 
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import com.example.CryptoUtils;
 
 interface ValidatorFunction {
     boolean validate(Map<String, Object> data);
@@ -36,11 +38,8 @@ public class DataSender {
             }
             String authorizationHeader = "hmac " + hashedPayload;
 
-            String urlString = String.format("https://in.%s%s.killbills.%s%s",
-                    env.equals("prod") ? "" : env + ".",
-                    env.equals("prod") ? "" : ".",
-                    env.equals("prod") ? "co" : "dev",
-                    endpoint);
+            String urlString = "https://in." + (env.equals("prod") ? "" : env + ".") + "killbills."
+                    + (env.equals("prod") ? "co" : "dev") + "/" + endpoint;
 
             URL url = new URL(urlString);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -56,19 +55,38 @@ public class DataSender {
             }
 
             int responseCode = connection.getResponseCode();
+            System.out.println("Response Code: " + responseCode);
 
-            // Handle the response code and response body as needed
-            // ...
+            String responseBody = null;
+            try (InputStream inputStream = connection.getInputStream()) {
+                responseBody = readInputStream(inputStream);
+            } catch (IOException e) {
+                // If the response code is 400 or higher, read the error response
+                if (responseCode >= 400) {
+                    responseBody = readInputStream(connection.getErrorStream());
+                }
+            }
 
             connection.disconnect();
+            return responseBody;
+
         } catch (IOException e) {
             e.printStackTrace();
             return e.getMessage();
         }
 
-        return null; // Return appropriate response or result
     }
 
+    private static String readInputStream(InputStream inputStream) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            return response.toString();
+        }
+    }
     // ... Define ValidatorFunction interface and its implementation here
 
     public static void main(String[] args) {

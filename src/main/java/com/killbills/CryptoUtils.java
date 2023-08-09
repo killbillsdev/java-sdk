@@ -1,4 +1,4 @@
-package com.example;
+package com.killbills;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
