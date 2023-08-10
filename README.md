@@ -28,7 +28,7 @@ The main purpose of this Software Development Kit (SDK) is to facilitates the in
         ...
         <dependency>
             <groupId>io.github.killbillsdev</groupId>
-            <artifactId>java-sdk</artifactId>
+            <artifactId>KillBills_sdk</artifactId>
             <version>0.0.1</version>
         </dependency>
     </dependencies>
@@ -36,7 +36,10 @@ The main purpose of this Software Development Kit (SDK) is to facilitates the in
 </project>
 ```
 ## Usage/Examples
- 
+#### Import:
+```java
+import com.killbills.Sdk;
+```
 #### Method getStores :
 ```java
 Sdk.getStores("dev", "your-api-key");
