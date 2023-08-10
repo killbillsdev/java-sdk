@@ -3,7 +3,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.killbillsdev</groupId> <!-- Change to your actual groupId -->
-  <artifactId>Killbills-sdk</artifactId> <!-- Change to your actual artifactId -->
+  <artifactId>KillBills_sdk</artifactId> <!-- Change to your actual artifactId -->
   <packaging>jar</packaging>
   <version>0.0.1</version>
   <name>java-sdk</name>
@@ -74,6 +74,28 @@
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+            <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                    <goal>sign</goal>
+                </goals>
+                <configuration>
+                    <gpgArguments>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                        <arg>--passphrase</arg>
+                        <arg></arg>
+                    </gpgArguments>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
     </plugins>
   </build>
 
