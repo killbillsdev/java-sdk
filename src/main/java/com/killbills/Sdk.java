@@ -12,6 +12,10 @@ import com.google.gson.reflect.TypeToken;
 
 public class Sdk {
     public static List<Map<String, Object>> getStores(String env, String apiKey) {
+        return getStores(env, apiKey, 500, 0); 
+    }
+
+    public static List<Map<String, Object>> getStores(String env, String apiKey, int limit, int offset) {
         try {
             if (env == null || env.isEmpty()) {
                 throw new IllegalArgumentException("No environment specified");
@@ -21,7 +25,7 @@ public class Sdk {
             }
 
             String baseUrl = "https://w." + (env.equals("prod") ? "" : env + ".") + "killbills."
-                    + (env.equals("prod") ? "co" : "dev") + "/stores";
+                    + (env.equals("prod") ? "co" : "dev") + "/stores?limit=" + limit + "&offset=" + offset;
             URL url = new URL(baseUrl);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
