@@ -12,11 +12,11 @@ import com.google.gson.reflect.TypeToken;
 
 public class Sdk {
     public static List<Map<String, Object>> getStores(String env, String apiKey) {
-        return getStores(env, apiKey, 500, 0); 
+        return getStores(env, apiKey, 500, 0);  
     }
 
     public static List<Map<String, Object>> getStores(String env, String apiKey, int limit, int offset) {
-        try {
+        try {  
             if (env == null || env.isEmpty()) {
                 throw new IllegalArgumentException("No environment specified");
             }
